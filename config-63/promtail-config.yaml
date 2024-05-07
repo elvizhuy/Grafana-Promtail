@@ -1,0 +1,20 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://10.0.0.13:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: system
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: applogs
+      __path__: /var/log/*log
+
+#docker run --name promtail -d -v $(pwd):/mnt/config -v /var/log:/var/log -config.file=/mnt/config/promtail-config.yaml
