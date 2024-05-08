@@ -19,9 +19,10 @@ scrape_configs:
       - localhost
     labels:
       job: applogs
-      __path__: /home/isofh/server/emr/dhy-demo/his/log/*.gz
+      env: his-dhy-demo
+      __path__: /var/log/test-63/*.gz
 
-- job_name: aotherlogs
+- job_name: anotherlogs
   static_configs:
   - targets:
       - localhost
@@ -29,4 +30,13 @@ scrape_configs:
       job: anotherlogs
       __path__: /var/log/*log
 
-#docker run --name promtail -d -v $(pwd):/mnt/config -v /var/log:/var/log -config.file=/mnt/config/promtail-config.yaml
+
+docker run --name promtail -d \
+    -v $(pwd):/mnt/config \
+    -v /home/isofh/server/emr/dhy-demo/his/log:/var/log/test-63 \
+    grafana/promtail:3.0.0 \
+    -config.file=/mnt/config/promtail-config.yaml
+    
+#docker run --name promtail -d -v $(pwd):/mnt/config -v /home/isofh/server/emr/dhy-demo/his/log:/var/log --config.file=/mnt/config/promtail-config.yaml
+
+
