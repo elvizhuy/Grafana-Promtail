@@ -9,7 +9,7 @@ clients:
   - url: http://10.0.0.13:3100/loki/api/v1/push
 
 scrape_configs:
-- job_name: applogs
+- job_name: his-dhy-demo
   decompression:
     enabled: true
     initial_delay: 10s
@@ -18,15 +18,32 @@ scrape_configs:
   - targets:
       - localhost
     labels:
-      job: applogs
-      __path__: /var/log/*.gz
+      job: his-dhy-demo
+      env: his-dhy-demo
+      __path__: /var/log/test-63/his-dhy-demo/*.gz
 
-- job_name: aotherlogs
+
+- job_name: his-dhy-develop
+  decompression:
+    enabled: true
+    initial_delay: 10s
+    format: gz
   static_configs:
   - targets:
       - localhost
     labels:
-      job: anotherlogs
-      __path__: /home/isofh/server/emr/ndtp-develop/his/log/*log
+      job: his-dhy-develop
+      env: his-dhy-develop
+      __path__: /var/log/test-63/his-dhy-develop/*.gz
 
-#docker run --name promtail -d -v $(pwd):/mnt/config -v /var/log:/var/log -config.file=/mnt/config/promtail-config.yaml
+
+# docker run --name promtail -d \
+#     -v $(pwd):/mnt/config \
+#     -v /home/isofh/server/emr/dhy-demo/his/log:/var/log/test-63 \
+#     grafana/promtail:3.0.0 \
+#     -config.file=/mnt/config/promtail-config.yaml
+    
+#docker run --name promtail -d -v $(pwd):/mnt/config -v /home/isofh/server/emr/dhy-demo/his/log:/var/log --config.file=/mnt/config/promtail-config.yaml
+
+
+
