@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  promtail:
+    image: grafana/promtail:3.0.0
+    container_name: promtail
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/promtail-config.yaml
+      - /home/isofh/server/emr/dhy-demo/his/log:/var/log/test-63/his-dhy-demo
+      - /home/isofh/server/emr/dhy-develop/his/log:/var/log/test-63/his-dhy-develop
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    restart: always
