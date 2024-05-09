@@ -21,8 +21,6 @@ scrape_configs:
       job: his-dhy-demo
       env: his-dhy-demo
       __path__: /var/log/test-63/his-dhy-demo/*.gz
-
-
 - job_name: his-dhy-develop
   decompression:
     enabled: true
